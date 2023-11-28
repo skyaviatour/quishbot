@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - '6379:6379'
+    environment:
+      - REDIS_PASSWORD=quishbot
+      - REDIS_PORT=6379
