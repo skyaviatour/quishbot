@@ -1,20 +1,22 @@
-from logging import Logger
+import logging
 import redis.asyncio as redis
 from redis.asyncio.client import PubSub
+
+
+logger = logging.getLogger(__name__)
 
 
 class RedisHandler:
     host: str
     client: redis.Redis
-    logger: Logger
     pubsub: PubSub
 
-    def __init__(self, host: str, logger: Logger) -> None:
+    def __init__(self, host: str) -> None:
         self.host = host
-        self.logger = logger
 
     async def start(self):
-        self.logger.info("starting redis handler")
+        logger.info("starting redis handler")
+
         self.client = redis.from_url(self.host)
         self.pubsub = self.client.pubsub()
 

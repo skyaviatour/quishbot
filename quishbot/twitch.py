@@ -1,4 +1,4 @@
-from logging import Logger
+import logging
 from twitchAPI.eventsub.websocket import EventSubWebsocket
 from twitchAPI.helper import first
 from twitchAPI.twitch import Twitch
@@ -7,16 +7,17 @@ from quishbot.config import SQUISH_REDEEM_ID
 from quishbot.redishandler import RedisHandler
 
 
+logger = logging.getLogger(__name__)
+
+
 class TwitchHandler:
     instance: Twitch
     redis_handler: RedisHandler
-    logger: Logger
     event_sub_ws: EventSubWebsocket
 
-    def __init__(self, instance: Twitch, redis_handler: RedisHandler, logger: Logger) -> None:
+    def __init__(self, instance: Twitch, redis_handler: RedisHandler) -> None:
         self.instance = instance
         self.redis_handler = redis_handler
-        self.logger = logger
 
     async def start(self):
         me = await first(self.instance.get_users())
@@ -29,7 +30,7 @@ class TwitchHandler:
 
         await self.event_sub_ws.listen_channel_points_custom_reward_redemption_add(me.id, self.handle_squish_redeem, reward_id=SQUISH_REDEEM_ID)
 
-        self.logger.info("ready to accept redeems")
+        logger.info("ready to accept redeems")
 
     async def stop(self):
         ...

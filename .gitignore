@@ -1,3 +1,6 @@
 env/
 __pycache__/
 tags
+user_token.json
+.envrc
+pyrightconfig.json

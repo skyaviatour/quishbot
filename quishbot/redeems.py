@@ -1,5 +1,5 @@
 import asyncio
-from logging import Logger
+import logging
 from typing import Callable
 import async_timeout
 
@@ -7,18 +7,19 @@ from redis.asyncio.client import PubSub
 from quishbot.redishandler import RedisHandler
 
 
+logger = logging.getLogger(__name__)
+
+
 class RedeemHandler:
     redis_handler: RedisHandler
     redeems: dict[str, Callable]
-    logger: Logger
 
-    def __init__(self, redis_handler: RedisHandler, redeems: dict[str, Callable], logger: Logger) -> None:
+    def __init__(self, redis_handler: RedisHandler, redeems: dict[str, Callable]) -> None:
         self.redis_handler = redis_handler
         self.redeems = redeems
-        self.logger = logger
 
     async def start(self):
-        self.logger.info("handling redeem channels")
+        logger.info("handling redeem channels")
 
         pubsub = await self.redis_handler.get_pubsub()
 
@@ -32,7 +33,7 @@ class RedeemHandler:
         ...
 
     async def consumer(self, pubsub: PubSub):
-        self.logger.info("starting consumer")
+        logger.info("starting consumer")
 
         while True:
             try:
