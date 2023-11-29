@@ -16,8 +16,4 @@ WS_PASS = os.getenv("WS_PASS")
 SQUISH_REDEEM_ID="d30865cd-d04d-4d11-bc92-5bb333d5f9da"
 SQUISH_FILTER_NAME = "SQUISH START"
 
-CALLBACK_URL="http://localhost:5000/"
-
 REDIS_PASSWORD=os.getenv("REDIS_PASSWORD")
-
-TWITCH_ID=os.getenv("TWITCH_ID", "")

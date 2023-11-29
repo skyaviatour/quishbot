@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "quishbot"
+version = "0.1.0"
+description = ""
+authors = ["Sky Aviatour <skyaviatour@proton.me>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+twitchAPI = "^4.1.0"
+redis = "^5.0.1"
+obsws-python = "^1.6.2"
+async-timeout = "^4.0.3"
+
+[tool.poetry.group.dev.dependencies]
+ipdb = "^0.13.13"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
