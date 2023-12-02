@@ -30,12 +30,13 @@ async def main():
 
     redis_handler = RedisHandler("redis://localhost")
     twitch_handler = TwitchHandler(instance=twitch, redis_handler=redis_handler)
-    redeems_handler = RedeemHandler(redis_handler=redis_handler, redeems=redeems)
+    redeems_handler = RedeemHandler(redis_handler=redis_handler,
+                                    redeems=redeems, twitch_handler=twitch_handler)
 
     await asyncio.gather(
         asyncio.create_task(redis_handler.start()),
+        asyncio.create_task(twitch_handler.start()),
         asyncio.create_task(redeems_handler.start()),
-        asyncio.create_task(twitch_handler.start())
     )
 
 

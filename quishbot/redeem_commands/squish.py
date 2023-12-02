@@ -3,6 +3,11 @@ import asyncio
 from quishbot import obs
 from quishbot.config import SQUISH_FILTER_NAME
 
+title = "squish me"
+description = "i deserve it"
+cost = 500
+enabled = True
+
 
 async def handle():
     conn = obs.get_connection()
