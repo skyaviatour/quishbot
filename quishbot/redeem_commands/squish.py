@@ -5,8 +5,9 @@ from quishbot.config import SQUISH_FILTER_NAME
 
 title = "squish me"
 description = "i deserve it"
-cost = 500
+cost = 100
 enabled = True
+queue_name = "squish"
 
 
 async def handle():

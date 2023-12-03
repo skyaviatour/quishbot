@@ -37,6 +37,7 @@ async def main():
         asyncio.create_task(redis_handler.start()),
         asyncio.create_task(twitch_handler.start()),
         asyncio.create_task(redeems_handler.start()),
+        asyncio.create_task(redeems_handler.start_refund_watcher())
     )
 
 
