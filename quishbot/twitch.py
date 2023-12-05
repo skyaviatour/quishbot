@@ -4,8 +4,8 @@ from twitchAPI.helper import first
 from twitchAPI.object.eventsub import ChannelPointsCustomRewardRedemptionAddEvent
 from twitchAPI.twitch import CustomReward, Twitch
 from twitchAPI.type import CustomRewardRedemptionStatus
+from quishbot.queues.generic import GenericQueue
 
-from quishbot.redishandler import RedisHandler
 from quishbot.types.redeem import Redeem
 
 
@@ -14,16 +14,16 @@ logger = logging.getLogger(__name__)
 
 class TwitchHandler:
     instance: Twitch
-    redis_handler: RedisHandler
+    queue: GenericQueue
     event_sub_ws: EventSubWebsocket
 
     my_id: str | None
 
     redeems_map: dict[str, str]
 
-    def __init__(self, instance: Twitch, redis_handler: RedisHandler) -> None:
+    def __init__(self, instance: Twitch, queue: GenericQueue) -> None:
         self.instance = instance
-        self.redis_handler = redis_handler
+        self.queue = queue
 
         self.my_id = None
         self.redeems_map = {}
@@ -61,7 +61,7 @@ class TwitchHandler:
         redeem_title = data.event.reward.title
 
         if redeem_title in self.redeems_map:
-            await self.redis_handler.publish(
+            await self.queue.put_message(
                 f"redeems:{self.redeems_map[redeem_title]}", f"{data.event.id}"
             )
 
